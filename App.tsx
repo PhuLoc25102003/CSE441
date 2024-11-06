@@ -1,39 +1,90 @@
-import { useState } from "react";
-import ProductList from "./Product";
-import Product_Add from "./Product_Add";
-import Product_Detail from './Product_Detail';
-import Product_Search from "./Product_Search";
-import { BottomNavigation, Text, Title } from "react-native-paper";
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import 'react-native-gesture-handler';
+import Contacts from './src/Contacts';
+import Store from './src/Store';
+import { Provider } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import Favorites from './src/Favorites';
+import ProfileContact from './src/ProfileContact';
+
+const Stack = createStackNavigator();
+
+function ContactsScreens() {
+  return (
+    <Stack.Navigator
+      initialRouteName='Contacts'
+      screenOptions={
+        {
+          headerShown: true
+        }
+      }
+    >
+      <Stack.Screen name='Contacts' component={Contacts}
+        options={{ title: "Contacts" }} />
+
+      <Stack.Screen name='ProfileContact' component={ProfileContact}
+        options={{ title: "Profile contact" }} />
+
+    </Stack.Navigator>
+  )
+}
+
+function FavoriteScreens() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Favorites"
+      screenOptions={
+        {
+          headerShown: true
+        }
+      }
+    >
+      <Stack.Screen name='Favorites' component={Favorites}
+        options={{ title: "Favorites" }} />
+
+      <Stack.Screen
+        name='ProfileContact'
+        component={ProfileContact}
+        options={{ title: "Profile contact" }}
+      />
+
+    </Stack.Navigator>
+  )
+}
+
+const Tab = createMaterialBottomTabNavigator();
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName='ContactsScreens'
+      barStyle={{ backgroundColor: "blue" }}
+      labeled={false}
+      activeColor='#D3D3D3'
+      inactiveColor='#A9A9A9'
+    >
+      <Tab.Screen name='Contacts' component={ContactsScreens}
+        options={{
+          tabBarIcon: 'format-list-bulleted'
+        }}
+      />
+
+      <Tab.Screen name='Favorites' component={FavoriteScreens}
+        options={{
+          tabBarIcon: 'star-check',
+        }}
+      />
+    </Tab.Navigator>
+  )
+}
 
 const App = () => {
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: 'ProductList', title: 'Products', focusedIcon: 'folder' },
-    { key: 'Product_Add', title: 'Add', focusedIcon: 'folder' },
-    { key: 'Product_Search', title: 'Search', focusedIcon: 'find' },
-    { key: 'Product_Detail', title: 'Detail', focusedIcon: 'calendar' },
-  ])
-  const renderScene = BottomNavigation.SceneMap({
-    ProductList: ProductList,
-    Product_Add: Product_Add,
-    Product_Search: Product_Search,
-    Product_Detail: Product_Detail,
-  });
   return (
-    <SafeAreaProvider>
-      <BottomNavigation
-        navigationState={{ index, routes }}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-      />
-    </SafeAreaProvider>
-
-
+    <Provider store={Store}>
+      <NavigationContainer>
+        <TabNavigator />
+      </NavigationContainer>
+    </Provider>
   )
-};
-
-export default App
-
-
-
+}
+export default App;

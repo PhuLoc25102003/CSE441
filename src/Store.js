@@ -5,7 +5,7 @@ export const mapContacts = (contact) => {
     const {name, picture, phone, cell, email} = contact;
     return {
         id: v4(),
-        name: name.first + ' ' + name.last,
+        name: name.first +""+ name.last,
         avatar: picture.large,
         phone,
         cell,

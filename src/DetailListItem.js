@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // or another icon set you prefer
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const DetailListItem = ({ icon, title, subtitle }) => {
     return (
@@ -17,14 +17,14 @@ const DetailListItem = ({ icon, title, subtitle }) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        alignItems: 'flex-start', // Align text at the start of the icon
+        alignItems: 'flex-start', 
         padding: 15,
         borderBottomWidth: 1,
         borderBottomColor: '#ccc',
     },
     icon: {
         marginRight: 15,
-        marginTop: 4, // Align the icon with the title text
+        marginTop: 4, 
     },
     textContainer: {
         flexDirection: 'column',
@@ -32,10 +32,10 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',
         fontSize: 16,
-        marginBottom: 2, // Space between title and subtitle
+        marginBottom: 2, 
     },
     subtitle: {
-        color: '#4169e1', // Blue color for the subtitle (like in the image)
+        color: '#4169e1',
         fontSize: 14,
     },
 });

@@ -2,41 +2,40 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContactsSuccess } from "./Store";
 import { FlatList, StyleSheet, View } from "react-native";
-import ContactListItem from "./ContactListItem"; // Ensure you import this
+import ContactListItem from "./ContactListItem"; 
 
 const keyExtractor = ({ phone }) => phone;
 
 const mapContacts = (item) => ({
-    name: `${item.name.title} ${item.name.first} ${item.name.last}`,
+    name: `${item.name.first} ${item.name.last}`,
     avatar: item.picture.thumbnail,
     phone: item.phone
 });
 
 const fetchContacts = async () => {
-    const data = await fetch('https://randomuser.me/api/?results=50')
+    const data = await fetch('https://randomuser.me/api/?results=50');
     const ContactData = await data.json();
-    //console.log("aaa"+ContactData);
     return ContactData.results.map(mapContacts);
-    
-    
-};
+  };
 
 const Contacts = ({ navigation }) => {
-    const { contacts } = useSelector((state) => state.contacts); // Ensure state.contacts
+    const { contacts } = useSelector((state) => state.contacts); 
     const dispatch = useDispatch();
 
     useEffect(() => {
         fetchContacts()
-            .then(contactsaa => {
-                dispatch(fetchContactsSuccess(contactsaa));
-            })
-            .catch(e => {
-                console.error(e); // Log the error
-            });
-    }, []);
+          .then(contactsaa => {
+           
+            dispatch(fetchContactsSuccess(contactsaa));
+          })
+          .catch(e => {
+            console.error(e);
+          });
+      }, []);
 
     const renderContacts = ({ item }) => {
         const { name, avatar, phone } = item;
+        console.log(name);
         return (
             <ContactListItem
                 name={name}
